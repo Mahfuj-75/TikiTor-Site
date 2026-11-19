@@ -166,6 +166,54 @@
  <div class="fine"><img src="assets/logo-light.png" alt="Tikitor"><span>© 2026 Tikitor. Made for live moments across Bangladesh.</span></div>
 </div></footer>
 
+
+
+<!-- coupon code-->
+<dialog id="tikitor-offer" aria-labelledby="tikitor-offer-title">
+  <form method="dialog">
+    <button class="offer-close" aria-label="Close offer">×</button>
+  </form>
+
+  <p class="offer-brand"><h2>TikiTor</h2></p>
+  <h2 id="tikitor-offer-title">Your<span class="gt"> Ticket Coupon </span>is here!</h2>
+  <p class="offer-description">Copy the coupon and use it at checkout and <span class="gt"><b>get 15%</b> discount for upcoming events. </span></p>
+
+  <div class="offer-code-box">
+    <code id="tikitor-code">TIKITOR15</code>
+    <button type="button" id="tikitor-copy">Copy</button>
+  </div>
+
+  <p id="tikitor-feedback" role="status"></p>
+</dialog>
+
+<script>
+  (() => {
+    const popup = document.getElementById("tikitor-offer");
+    const code = document.getElementById("tikitor-code");
+    const copyButton = document.getElementById("tikitor-copy");
+    const feedback = document.getElementById("tikitor-feedback");
+
+    popup.showModal();
+
+    copyButton.addEventListener("click", async () => {
+      try {
+        await navigator.clipboard.writeText(code.textContent.trim());
+        copyButton.textContent = "Copied ✓";
+        feedback.textContent = "Coupon copied to clipboard.";
+      } catch {
+        const range = document.createRange();
+        range.selectNodeContents(code);
+
+        const selection = window.getSelection();
+        selection.removeAllRanges();
+        selection.addRange(range);
+
+        feedback.textContent = "Code selected. Press Ctrl+C, ⌘C, or tap and hold to copy.";
+      }
+    });
+  })();
+</script>
+
 <script src="js/script.js"></script>
 </body>
 </html>
